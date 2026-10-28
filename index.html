@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cyber AI Node | Utah Edge Network Simulation</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<header class="hdr wrap">
+<div class="hrow">
+<div class="brand"><span class="mark" aria-hidden="true"></span><h1>Cyber AI Node <span class="sep">|</span> <span class="h1s">Utah Edge Network Simulation</span></h1></div>
+<div class="clock" aria-label="Simulation clock"><span id="runstate">Free run</span><span class="lbl">Sim clock</span><b id="clock">T+00:00.0</b><span class="lbl">Seed</span><b id="seedv">2026</b></div>
+</div>
+<ul class="chips" aria-label="What this shows"><li>Local monitoring<button type="button" class="info" data-info="local" aria-label="About: Local monitoring" aria-expanded="false" aria-haspopup="dialog">i</button></li><li>On-device analysis<button type="button" class="info" data-info="ondevice" aria-label="About: On-device analysis" aria-expanded="false" aria-haspopup="dialog">i</button></li><li>Human-gated response<button type="button" class="info" data-info="human" aria-label="About: Human-gated response" aria-expanded="false" aria-haspopup="dialog">i</button></li><li>Works offline<button type="button" class="info" data-info="offline" aria-label="About: Works offline" aria-expanded="false" aria-haspopup="dialog">i</button></li><li>Signed updates<button type="button" class="info" data-info="signed" aria-label="About: Signed updates" aria-expanded="false" aria-haspopup="dialog">i</button></li></ul>
+</header>
+<nav class="toolbar wrap" aria-label="Simulation controls">
+<div class="tg"><button id="btnRun" class="primary">Run guided demo</button><button id="btnPresent" class="present">▶ Narrated walkthrough</button><button type="button" class="info" data-info="present" aria-label="About: Narrated walkthrough" aria-expanded="false" aria-haspopup="dialog">i</button><label class="chk"><input type="checkbox" id="chkAuto"> Auto-approve after 8s</label><label class="chk"><input type="checkbox" id="chkStep"> Step mode</label><button id="btnNext" disabled>Next step</button><button type="button" class="info" data-info="guided" aria-label="About: Guided demo" aria-expanded="false" aria-haspopup="dialog">i</button></div>
+<div class="tg"><label for="selOrigin" class="tl">Simulate anomaly at</label><select id="selOrigin"></select><button id="btnAnomaly">Trigger</button><button type="button" class="info" data-info="anomaly" aria-label="About: Simulate anomaly" aria-expanded="false" aria-haspopup="dialog">i</button></div>
+<div class="tg" role="group" aria-label="Global connectivity"><span class="tl">Connectivity</span><div class="seg" id="segConn"><button data-v="online">Online</button><button data-v="intermittent">Intermittent</button><button data-v="offline">Offline</button></div><button type="button" class="info" data-info="conn" aria-label="About: Connectivity" aria-expanded="false" aria-haspopup="dialog">i</button></div>
+<div class="tg" role="group" aria-label="Speed"><span class="tl">Speed</span><div class="seg" id="segSpeed"><button data-v="1">1×</button><button data-v="2">2×</button><button data-v="4">4×</button></div></div>
+<div class="tg"><button id="btnReset">Reset</button><button id="btnReplay">Replay</button><button type="button" class="info" data-info="replay" aria-label="About: Speed, Reset, Replay" aria-expanded="false" aria-haspopup="dialog">i</button></div>
+</nav>
+<main class="wrap" id="root">
+<div class="grid">
+<section class="panel mapp" aria-label="Utah edge network map">
+<div class="ph"><div class="hi"><h2>Edge network · Utah</h2><button type="button" class="info" data-info="map" aria-label="About: Reading the map" aria-expanded="false" aria-haspopup="dialog">i</button></div><ul class="legend" aria-label="Legend"><li><i class="lg-node"></i>Active node</li><li><i class="lg-hex"></i>Console</li><li><i class="lg-up"></i>Uplink</li><li><i class="lg-down"></i>Downlink</li><li><i class="lg-peer"></i>Peer alert</li></ul></div>
+<div class="segrow" role="group" aria-label="Filter nodes by segment"><span class="tl">Segment</span><div class="seg" id="segCat"></div><button type="button" class="info" data-info="segments" aria-label="About: Segment filter" aria-expanded="false" aria-haspopup="dialog">i</button></div>
+<div id="map" class="mapw"></div>
+<p class="cap">Marker positions approximate, for illustration. Click or press Enter on a node for details.</p>
+<aside id="drawer" class="drawer" hidden aria-labelledby="drawerTitle"></aside>
+</section>
+<section class="panel console" id="console" aria-label="Operator console"></section>
+</div>
+<section class="panel stepbar" id="stepbar" aria-label="Demo progress">
+<div class="stepsrow"><ol id="steps" class="steps"></ol><button type="button" class="info" data-info="steps" aria-label="About: Workflow steps" aria-expanded="false" aria-haspopup="dialog">i</button></div>
+<div class="capw"><p id="caption" class="caption"></p><p id="live" class="livel"></p></div>
+</section>
+<div class="bottom">
+<section class="panel metrics" id="metrics" aria-label="Metrics"></section>
+<section class="panel logp" aria-label="Event log">
+<div class="ph"><div class="hi"><h2>Event log</h2><button type="button" class="info" data-info="log" aria-label="About: Event log" aria-expanded="false" aria-haspopup="dialog">i</button></div><div class="lact"><label class="chk"><input type="checkbox" id="chkHb"> Heartbeats</label><button id="btnExport">Export JSON</button></div></div>
+<div id="sr" class="sr-only" aria-live="polite"></div>
+<ol id="log" class="log"></ol>
+</section>
+</div>
+</main>
+<footer class="foot wrap"><div class="banner" role="note"><b>Simulation.</b> All telemetry is synthetic. Sites are public Utah energy projects shown for context only. No affiliation, data sharing, or endorsement is implied.</div><p>Simulation of the Cyber AI Node supervised edge workflow. Not a production control system. All telemetry is synthetic. Every containment action requires human confirmation, and electrical protection remains independent. Energy is the primary example; the same pattern applies to AI infrastructure, defense, and aerospace sites. Built during Hard Tech Week, Oct 26–28, 2026.</p></footer>
+<script src="js/sites.js"></script>
+<script src="js/core.js"></script>
+<script src="js/info.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/views-map.js"></script>
+<script src="js/views-panels.js"></script>
+<script src="js/app.js"></script>
+<script src="js/presenter.js"></script>
+</body>
+</html>
